@@ -2,7 +2,14 @@
 namespace Lucinda\RSS;
 require_once("Enclosure.php");
 
-class Item implements Object
+/**
+ * Encapsulates a RSS item according to specifications:
+ * https://validator.w3.org/feed/docs/rss2.html#hrelementsOfLtitemgt
+ *
+ * @package Lucinda\RSS
+ * @example http://www.landofcode.com/rss-reference/item-tag.php
+ */
+class Item implements Tag
 {
     private $title;
     private $link;
@@ -19,8 +26,8 @@ class Item implements Object
     /**
      * Sets item's required information: title and description
      *
-     * @param string $title
-     * @param string $description
+     * @param string $title Sets the title of the item
+     * @param string $description Sets a description for the item
      */
     public function __construct($title, $description)
     {

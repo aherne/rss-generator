@@ -1,11 +1,18 @@
 <?php
 namespace Lucinda\RSS;
+require_once("Tag.php");
 require_once("Item.php");
 require_once("Cloud.php");
 require_once("Image.php");
 require_once("Input.php");
 
-class Channel implements Object
+/**
+ * Encapsulates a RSS channel according to specifications:
+ * https://validator.w3.org/feed/docs/rss2.html
+ *
+ * @package Lucinda\RSS
+ */
+class Channel implements Tag
 {
     private $title;
     private $link;
@@ -157,7 +164,7 @@ class Channel implements Object
      *
      * @param Image $image
      */
-    public function setImage($image)
+    public function setImage(Image $image)
     {
         $this->image = $image;
     }

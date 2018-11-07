@@ -1,7 +1,14 @@
 <?php
 namespace Lucinda\RSS;
 
-class Image implements Object
+/**
+ * Encapsulates a GIF/JPEG/PNG image that can be displayed with the channel according to specifications:
+ * https://validator.w3.org/feed/docs/rss2.html#ltimagegtSubelementOfLtchannelgt
+ *
+ * @package Lucinda\RSS
+ * @example http://www.landofcode.com/rss-reference/image-tag.php
+ */
+class Image implements Tag
 {
     private $url;
     private $title;
@@ -10,6 +17,12 @@ class Image implements Object
     private $height;
     private $description;
 
+    /**
+     * Image constructor.
+     * @param $url
+     * @param $title
+     * @param $link
+     */
     public function __construct($url, $title, $link) {
         $this->url = $url;
         $this->title = $title;
