@@ -3,7 +3,6 @@ namespace Lucinda\RSS;
 
 /**
  * Encapsulates a RSS tag
- * @package Lucinda\RSS
  */
 interface Tag
 {
@@ -12,5 +11,5 @@ interface Tag
      *
      * @return string
      */
-    function toString();
+    function __toString();
 }

@@ -1,13 +1,9 @@
 <?php
 namespace Lucinda\RSS;
-require_once("Enclosure.php");
 
 /**
- * Encapsulates a RSS item according to specifications:
- * https://validator.w3.org/feed/docs/rss2.html#hrelementsOfLtitemgt
- *
- * @package Lucinda\RSS
- * @example http://www.landofcode.com/rss-reference/item-tag.php
+ * Encapsulates a RSS item tag according to specifications:
+ * https://www.rssboard.org/rss-profile#element-channel-item
  */
 class Item implements Tag
 {
@@ -15,7 +11,7 @@ class Item implements Tag
     private $link;
     private $description;
     private $author;
-    private $categories = [];
+    private $category;
     private $comments;
     private $enclosure;
     private $guid;
@@ -26,19 +22,20 @@ class Item implements Tag
     /**
      * Sets item's required information: title and description
      *
-     * @param string $title Sets the title of the item
-     * @param string $description Sets a description for the item
+     * @param string $title Sets the title of feed item
+     * @param string $description Sets a description of feed item
      */
     public function __construct($title, $description)
     {
         $this->title = $title;
-        $this->description = $description;
+        $this->description = new Escape($description);
     }
 
     /**
-     * Sets item URL
+     * Sets item URL according to specifications:
+     * https://www.rssboard.org/rss-profile#element-channel-item-url
      *
-     * @param string $link
+     * @param string $link URL of feed item.
      */
     public function setLink($link)
     {
@@ -46,39 +43,49 @@ class Item implements Tag
     }
 
     /**
-     * Sets item author's email.
+     * Sets item author's email according to specifications:
+     * https://www.rssboard.org/rss-profile#element-channel-item-author
      *
-     * @param string $author
+     * @param string $email Author of feed item
      */
-    public function setAuthor($author)
+    public function setAuthor($email)
     {
-        $this->author = $author;
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new Exception("Invalid feed author");
+        }
+        $this->author = $email;
     }
 
     /**
-     * Sets categories item belongs to
+     * Sets category item belongs to according to specifications:
+     * https://www.rssboard.org/rss-profile#element-channel-item-category
      *
-     * @param string[] $categories
+     * @param string $category Category feed item belongs
      */
-    public function setCategories($categories)
+    public function setCategories($category)
     {
-        $this->categories = $categories;
+        $this->category = $category;
     }
 
     /**
-     * Sets url of the comments page for the item.
+     * Sets url of the comments page for the item according to specifications:
+     * https://www.rssboard.org/rss-profile#element-channel-item-url
      *
-     * @param string $comments
+     * @param string $url URL of comments page of feed item
      */
-    public function setComments($comments)
+    public function setComments($url)
     {
-        $this->comments = $comments;
+        if (!filter_var($url, FILTER_VALIDATE_URL)) {
+            throw new Exception("Invalid feed comments");
+        }
+        $this->comments = $url;
     }
 
     /**
-     * Sets media object that is attached to the item.
+     * Sets media object that is attached to the item according to specifications:
+     * https://www.rssboard.org/rss-profile#element-channel-item-enclosure
      *
-     * @param Enclosure $enclosure
+     * @param Enclosure $enclosure Encapsulated RSS enclosure tag
      */
     public function setEnclosure($enclosure)
     {
@@ -86,9 +93,10 @@ class Item implements Tag
     }
 
     /**
-     * Sets unique item identifier
+     * Sets unique identifier of feed item according to specifications:
+     * https://www.rssboard.org/rss-profile#element-channel-item-guid
      *
-     * @param string $guid
+     * @param string $guid Unique identifier of feed item
      */
     public function setGuid($guid)
     {
@@ -96,46 +104,56 @@ class Item implements Tag
     }
 
     /**
-     * Set date item was published.
+     * Set date item was published by corresponding UNIX time according to specifications:
+     * https://www.rssboard.org/rss-profile#element-channel-item-pubdate
      *
-     * @param string $pubDate
+     * @param int $unixTime UNIX time at which item was published.
      */
-    public function setPubDate($pubDate)
+    public function setPubDate($unixTime)
     {
-        $this->pubDate = $pubDate;
+        $this->pubDate = date("r (T)", $unixTime);
     }
 
     /**
-     * Set item's source (reference)
+     * Set item's source RSS url according to specifications:
+     * https://www.rssboard.org/rss-profile#element-channel-item-source
      *
-     * @param string $source
+     * @param string $url
      */
-    public function setSource($source)
+    public function setSource($url)
     {
-        $this->source = $source;
+        if (!filter_var($url, FILTER_VALIDATE_URL)) {
+            throw new Exception("Invalid feed url");
+        }
+        $this->source = $url;
     }
-
+    
     /**
-     * Sets an extra parameter not part of RSS 2.0 specifications
+     * Adds a custom tag not part of RSS 2.0 specifications
      *
-     * @param string $key
-     * @param mixed $value
+     * @param Tag $tag
      */
-    public function setExtraParameter($key, $value) {
-        $this->extra[$key] = $value;
+    public function addCustomTag(Tag $tag) {
+        $this->extra[] = $tag;
     }
-
-    public function toString() {
+    
+    /**
+     * {@inheritDoc}
+     * @see \Lucinda\RSS\Tag::__toString()
+     */
+    public function __toString() {
         $output = "";
         $parameters = get_object_vars($this);
         foreach($parameters as $key=>$value) {
-            if(empty($value)) continue;
+            if (empty($value)) {
+                continue;
+            }
             if($key == "extra") {
-                foreach($value as $k=>$v) {
-                    $output .= ($v instanceof Object?$v->toString():"<".$k.">".$v."</".$k.">");
+                foreach($value as $v) {
+                    $output .= $v;
                 }
             } else {
-                $output .= ($value instanceof Object?$value->toString():"<".$key.">".$value."</".$key.">");
+                $output .= "<".$key.">".$value."</".$key.">";
             }
         }
         return "<item>".$output."</item>";

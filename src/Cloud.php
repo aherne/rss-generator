@@ -2,13 +2,8 @@
 namespace Lucinda\RSS;
 
 /**
- * Encapsulates a RSS web service that supports the rssCloud interface according to specifications:
- * https://validator.w3.org/feed/docs/rss2.html#ltcloudgtSubelementOfLtchannelgt
- * Its purpose is to allow processes to register with a cloud to be notified of updates to the channel,
- * implementing a lightweight publish-subscribe protocol for RSS feeds.
- *
- * @package Lucinda\RSS
- * @example http://www.landofcode.com/rss-reference/cloud-tag.php
+ * Encapsulates a RSS cloud tag according to specifications:
+ * https://www.rssboard.org/rss-profile#element-channel-cloud
  */
 class Cloud implements Tag
 {
@@ -34,8 +29,12 @@ class Cloud implements Tag
         $this->registerProcedure = $registerProcedure;
         $this->protocol = $protocol;
     }
-
-    public function toString()
+    
+    /**
+     * {@inheritDoc}
+     * @see \Lucinda\RSS\Tag::__toString()
+     */
+    public function __toString()
     {
         $output = "";
         $vars = get_object_vars($this);

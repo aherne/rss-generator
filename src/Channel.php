@@ -1,16 +1,9 @@
 <?php
 namespace Lucinda\RSS;
-require_once("Tag.php");
-require_once("Item.php");
-require_once("Cloud.php");
-require_once("Image.php");
-require_once("Input.php");
 
 /**
- * Encapsulates a RSS channel according to specifications:
- * https://validator.w3.org/feed/docs/rss2.html
- *
- * @package Lucinda\RSS
+ * Encapsulates a RSS channel tag according to specifications:
+ * https://www.rssboard.org/rss-profile#element-channel
  */
 class Channel implements Tag
 {
@@ -30,29 +23,30 @@ class Channel implements Tag
     private $ttl;
     private $image;
     private $textInput;
-    private $skipHours = [];
-    private $skipDays = [];
+    private $skipHours;
+    private $skipDays;
     private $item = [];
     private $extra = [];
 
     /**
      * Sets channel's required information: title, link and description
      *
-     * @param string $title
-     * @param string $link
-     * @param string $description
+     * @param string $title Sets the title of feed
+     * @param string $link URL of website associated with the feed
+     * @param string $description Sets a description for feed
      */
     public function __construct($title, $link, $description)
     {
         $this->title = $title;
         $this->link = $link;
-        $this->description = $description;
+        $this->description = new Escape($description);
     }
 
     /**
-     * Sets channel language (locale)
+     * Sets channel language (locale) according to specifications:
+     * https://www.rssboard.org/rss-profile#element-channel-language
      *
-     * @param string $language
+     * @param string $language ISO language code
      */
     public function setLanguage($language)
     {
@@ -60,9 +54,10 @@ class Channel implements Tag
     }
 
     /**
-     * Gets copyright rules
+     * Sets copyright rules according to specifications:
+     * https://www.rssboard.org/rss-profile#element-channel-copyright
      *
-     * @param string $copyright
+     * @param string $copyright Name of copyright owner
      */
     public function setCopyright($copyright)
     {
@@ -70,49 +65,60 @@ class Channel implements Tag
     }
 
     /**
-     * Sets managing editor's email
+     * Sets managing editor's email according to specifications:
+     * https://www.rssboard.org/rss-profile#element-channel-managingeditor
      *
-     * @param string $managingEditor
+     * @param string $email Email of managing editor
      */
-    public function setManagingEditor($managingEditor)
+    public function setManagingEditor($email)
     {
-        $this->managingEditor = $managingEditor;
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new Exception("Invalid managing editor");
+        }
+        $this->managingEditor = $email;
     }
 
     /**
-     * Sets web master's email
+     * Sets web master's email according to specifications:
+     * https://www.rssboard.org/rss-profile#element-channel-webmaster
      *
-     * @param mixed $webMaster
+     * @param string $webMaster Email of webmaster
      */
-    public function setWebMaster($webMaster)
+    public function setWebMaster($email)
     {
-        $this->webMaster = $webMaster;
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new Exception("Invalid managing editor");
+        }
+        $this->webMaster = $email;
     }
 
     /**
-     * Sets date content was put to channel
+     * Sets date content was put to channel by corresponding UNIX time according to specifications:
+     * https://www.rssboard.org/rss-profile#element-channel-pubdate
      *
-     * @param string $pubDate
+     * @param int $unixTime UNIX time at which content was put to channel.
      */
-    public function setPubDate($pubDate)
+    public function setPubDate($unixTime)
     {
-        $this->pubDate = $pubDate;
+        $this->pubDate = date("r (T)", $unixTime);
     }
 
     /**
-     * Sets date content was put to channel
+     * Sets date content was last updated in channel by corresponding UNIX time according to specifications:
+     * https://www.rssboard.org/rss-profile#element-channel-lastbuilddate
      *
-     * @param string $lastBuildDate
+     * @param int $unixTime UNIX time at which content was last updated
      */
-    public function setLastBuildDate($lastBuildDate)
+    public function setLastBuildDate($unixTime)
     {
-        $this->lastBuildDate = $lastBuildDate;
+        $this->lastBuildDate = date("r (T)", $unixTime);
     }
 
     /**
-     * Gets category channel belongs to (eg: Newspapers)
+     * Sets category channel belongs to according to specifications:
+     * https://www.rssboard.org/rss-profile#element-channel-category
      *
-     * @param string $category
+     * @param string $category Category channel belongs to
      */
     public function setCategory($category)
     {
@@ -120,9 +126,10 @@ class Channel implements Tag
     }
 
     /**
-     * Gets category channel belongs
+     * Sets software that generated feed according to specifications:
+     * https://www.rssboard.org/rss-profile#element-channel-generator
      *
-     * @param mixed $generator
+     * @param string $generator Software that generated feed
      */
     public function setGenerator($generator)
     {
@@ -130,19 +137,24 @@ class Channel implements Tag
     }
 
     /**
-     * Sets url to documentation related to channel
+     * Sets url to documentation related to channel according to specifications:
+     * https://www.rssboard.org/rss-profile#element-channel-docs
      *
-     * @param string $docs
+     * @param string $url Url to documentation related to channel
      */
-    public function setDocs($docs)
+    public function setDocs($url)
     {
-        $this->docs = $docs;
+        if (!filter_var($url, FILTER_VALIDATE_URL)) {
+            throw new Exception("Docs is invalid");
+        }
+        $this->docs = $url;
     }
 
     /**
-     * Sets web service supporting rssCloud interface
+     * Sets web service supporting rssCloud interface according to specifications:
+     * https://www.rssboard.org/rss-profile#element-channel-cloud
      *
-     * @param Cloud $cloud
+     * @param Cloud $cloud Encapsulated RSS cloud tag
      */
     public function setCloud(Cloud $cloud)
     {
@@ -150,19 +162,24 @@ class Channel implements Tag
     }
 
     /**
-     * Sets how long a channel can be cached before refreshing, in minutes (eg: 60)
+     * Sets how long a channel can be cached before refreshing, in minutes (eg: 60) according to specifications:
+     * https://www.rssboard.org/rss-profile#element-channel-ttl
      *
-     * @param integer $ttl
+     * @param integer $number
      */
-    public function setTtl($ttl)
+    public function setTtl($number)
     {
-        $this->ttl = $ttl;
+        if (!is_int($number) || $number < 0) {
+            throw new Exception("Ttl is invalid");
+        }
+        $this->ttl = $number;
     }
 
     /**
-     * Sets image that will be displayed with channel
+     * Sets image logo that will be displayed with channel according to specifications:
+     * https://www.rssboard.org/rss-profile#element-channel-image
      *
-     * @param Image $image
+     * @param Image $image Encapsulated RSS image tag
      */
     public function setImage(Image $image)
     {
@@ -170,65 +187,78 @@ class Channel implements Tag
     }
 
     /**
-     * Sets text input box that will be displayed with channel
+     * Sets text input box that will be displayed with channel according to specifications:
+     * https://www.rssboard.org/rss-profile#element-channel-textinput
      *
-     * @param Input $textInput
+     * @param Input $textInput Encapsulated RSS textInput tag
      */
-    public function setTextInput($textInput)
+    public function setTextInput(Input $textInput)
     {
         $this->textInput = $textInput;
     }
 
     /**
-     * Sets hours aggregator must ignore channel
+     * Sets hours aggregator must ignore channel according to specifications:
+     * https://www.rssboard.org/rss-profile#element-channel-skiphours
      *
-     * @param integer[] $skipHours
+     * @param SkipHours $skipHours Encapsulated RSS skipHours tag
      */
-    public function setSkipHours($skipHours)
+    public function setSkipHours(SkipHours $skipHours)
     {
         $this->skipHours = $skipHours;
     }
 
     /**
-     * Sets week days aggregator must ignore channel
+     * Sets week days aggregator must ignore channel according to specifications:
+     * https://www.rssboard.org/rss-profile#element-channel-skipdays
      *
-     * @param string[] $skipDays
+     * @param SkipDays $skipDays Encapsulated RSS skipDays tag
      */
-    public function setSkipDays($skipDays)
+    public function setSkipDays(SkipDays $skipDays)
     {
         $this->skipDays = $skipDays;
     }
 
     /**
-     * Adds item to channel.
+     * Adds item to channel according to specifications:
+     * https://www.rssboard.org/rss-profile#element-channel-item
      *
-     * @param Item $item
+     * @param Item $item Encapsulated RSS item tag
      */
-    public function addItem($item) {
+    public function addItem(Item $item) {
         $this->item[] = $item;
     }
 
     /**
-     * Sets an extra parameter not part of RSS 2.0 specifications
+     * Adds a custom tag not part of RSS 2.0 specifications
      *
-     * @param string $key
-     * @param mixed $value
+     * @param Tag $tag
      */
-    public function setExtraParameter($key, $value) {
-        $this->extra[$key] = $value;
+    public function addCustomTag(Tag $tag) {
+        $this->extra[] = $tag;
     }
-
-    public function toString() {
+        
+    /**
+     * {@inheritDoc}
+     * @see \Lucinda\RSS\Tag::__toString()
+     */
+    public function __toString() {
         $output = "";
         $parameters = get_object_vars($this);
         foreach($parameters as $key=>$value) {
-            if(empty($value)) continue;
+            if (empty($value)) {
+                continue;
+            }
             if($key == "extra") {
-                foreach($value as $k=>$v) {
-                    $output .= ($v instanceof Object?$v->toString():"<".$k.">".$v."</".$k.">");
+                foreach($value as $v) {
+                    $output .= $v;
+                }
+            } else if (is_array($value)) {
+                foreach($value as $v1) {
+                    $output .= "<".$key.">".$v1."</".$key.">";
                 }
             } else {
-                $output .= ($value instanceof Object?$value->toString():"<".$key.">".$value."</".$key.">");
+                $output .= "<".$key.">".$value."</".$key.">";
             }
         }
         return "<channel>".$output."</channel>";

@@ -1,13 +1,9 @@
 <?php
 namespace Lucinda\RSS;
 
-//
 /**
- * Encapsulates a text input box that can be displayed with the channel according to specifications:
- * https://validator.w3.org/feed/docs/rss2.html#lttextinputgtSubelementOfLtchannelgt
- *
- * @package Lucinda\RSS
- * @example http://www.landofcode.com/rss-reference/textinput-tag.php
+ * Encapsulates a RSS textInput tag according to specifications:
+ * https://www.rssboard.org/rss-profile#element-channel-textinput
  */
 class Input implements Tag
 {
@@ -30,8 +26,12 @@ class Input implements Tag
         $this->link = $link;
         $this->description = $description;
     }
-
-    public function toString() {
+    
+    /**
+     * {@inheritDoc}
+     * @see \Lucinda\RSS\Tag::__toString()
+     */
+    public function __toString() {
         $output = "";
         $parameters = get_object_vars($this);
         foreach($parameters as $key=>$value) {

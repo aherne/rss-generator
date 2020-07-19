@@ -2,12 +2,8 @@
 namespace Lucinda\RSS;
 
 /**
- * Encapsulates a RSS enclosure according to specifications:
- * https://validator.w3.org/feed/docs/rss2.html#ltenclosuregtSubelementOfLtitemgt
- * Defines a media object that is attached to the item
- *
- * @package Lucinda\RSS
- * @example http://www.landofcode.com/rss-reference/enclosure-tag.php
+ * Encapsulates a RSS enclosure tag according to specifications:
+ * https://www.rssboard.org/rss-profile#element-channel-enclosure
  */
 class Enclosure implements Tag
 {
@@ -17,6 +13,7 @@ class Enclosure implements Tag
 
     /**
      * Enclosure constructor.
+     * 
      * @param string $url Url says where the media object is located.
      * @param integer $length Byte size of media object
      * @param string $type Mime type of media object.
@@ -26,8 +23,12 @@ class Enclosure implements Tag
         $this->length = $length;
         $this->type = $type;
     }
-
-    public function toString()
+    
+    /**
+     * {@inheritDoc}
+     * @see \Lucinda\RSS\Tag::__toString()
+     */
+    public function __toString()
     {
         $output = "";
         $vars = get_object_vars($this);
