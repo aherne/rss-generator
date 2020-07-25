@@ -25,7 +25,7 @@ class Item implements Tag
      * @param string $title Sets the title of feed item
      * @param string $description Sets a description of feed item
      */
-    public function __construct($title, $description)
+    public function __construct(string $title, string $description)
     {
         $this->title = $title;
         $this->description = new Escape($description);
@@ -37,7 +37,7 @@ class Item implements Tag
      *
      * @param string $url URL of feed item.
      */
-    public function setLink($url)
+    public function setLink(string $url): void
     {
         if (!filter_var($url, FILTER_VALIDATE_URL)) {
             throw new Exception("Invalid feed url");
@@ -51,7 +51,7 @@ class Item implements Tag
      *
      * @param string $email Author of feed item
      */
-    public function setAuthor($email)
+    public function setAuthor(string $email): void
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new Exception("Invalid feed author");
@@ -65,7 +65,7 @@ class Item implements Tag
      *
      * @param string $category Category feed item belongs
      */
-    public function setCategories($category)
+    public function setCategories(string $category): void
     {
         $this->category = $category;
     }
@@ -76,7 +76,7 @@ class Item implements Tag
      *
      * @param string $url URL of comments page of feed item
      */
-    public function setComments($url)
+    public function setComments(string $url): void
     {
         if (!filter_var($url, FILTER_VALIDATE_URL)) {
             throw new Exception("Invalid feed comments");
@@ -90,7 +90,7 @@ class Item implements Tag
      *
      * @param Enclosure $enclosure Encapsulated RSS enclosure tag
      */
-    public function setEnclosure(Enclosure $enclosure)
+    public function setEnclosure(Enclosure $enclosure): void
     {
         $this->enclosure = $enclosure;
     }
@@ -101,7 +101,7 @@ class Item implements Tag
      *
      * @param string $guid Unique identifier of feed item
      */
-    public function setGuid($guid)
+    public function setGuid(string $guid): void
     {
         $this->guid = $guid;
     }
@@ -112,7 +112,7 @@ class Item implements Tag
      *
      * @param int $unixTime UNIX time at which item was published.
      */
-    public function setPubDate($unixTime)
+    public function setPubDate(int $unixTime): void
     {
         $this->pubDate = date("r (T)", $unixTime);
     }
@@ -123,7 +123,7 @@ class Item implements Tag
      *
      * @param string $url
      */
-    public function setSource($url)
+    public function setSource(string $url): void
     {
         if (!filter_var($url, FILTER_VALIDATE_URL)) {
             throw new Exception("Invalid feed url");
@@ -136,7 +136,7 @@ class Item implements Tag
      *
      * @param Tag $tag
      */
-    public function addCustomTag(Tag $tag)
+    public function addCustomTag(Tag $tag): void
     {
         $this->extra[] = $tag;
     }

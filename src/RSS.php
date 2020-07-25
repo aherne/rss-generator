@@ -29,7 +29,7 @@ class RSS implements Tag
      * @param string $url URL where specification is defined
      * @throws Exception
      */
-    public function addNamespace($name, $url)
+    public function addNamespace(string $name, string $url): void
     {
         if (!filter_var($url, FILTER_VALIDATE_URL)) {
             throw new Exception("Docs is invalid");

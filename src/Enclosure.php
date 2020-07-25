@@ -18,7 +18,7 @@ class Enclosure implements Tag
      * @param integer $length Byte size of media object
      * @param string $type Mime type of media object.
      */
-    public function __construct($url, $length, $type)
+    public function __construct(string $url, int $length, string $type)
     {
         $this->url = $url;
         $this->length = $length;

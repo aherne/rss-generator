@@ -35,7 +35,7 @@ class Channel implements Tag
      * @param string $link URL of website associated with the feed
      * @param string $description Sets a description for feed
      */
-    public function __construct($title, $link, $description)
+    public function __construct(string $title, string $link, string $description)
     {
         $this->title = $title;
         $this->link = $link;
@@ -48,7 +48,7 @@ class Channel implements Tag
      *
      * @param string $language ISO language code
      */
-    public function setLanguage($language)
+    public function setLanguage(string $language): void
     {
         $this->language = $language;
     }
@@ -59,7 +59,7 @@ class Channel implements Tag
      *
      * @param string $copyright Name of copyright owner
      */
-    public function setCopyright($copyright)
+    public function setCopyright(string $copyright): void
     {
         $this->copyright = $copyright;
     }
@@ -70,7 +70,7 @@ class Channel implements Tag
      *
      * @param string $email Email of managing editor
      */
-    public function setManagingEditor($email)
+    public function setManagingEditor(string $email): void
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new Exception("Invalid managing editor");
@@ -84,7 +84,7 @@ class Channel implements Tag
      *
      * @param string $webMaster Email of webmaster
      */
-    public function setWebMaster($email)
+    public function setWebMaster(string $email): void
     {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new Exception("Invalid managing editor");
@@ -98,7 +98,7 @@ class Channel implements Tag
      *
      * @param int $unixTime UNIX time at which content was put to channel.
      */
-    public function setPubDate($unixTime)
+    public function setPubDate(int $unixTime): void
     {
         $this->pubDate = date("r (T)", $unixTime);
     }
@@ -109,7 +109,7 @@ class Channel implements Tag
      *
      * @param int $unixTime UNIX time at which content was last updated
      */
-    public function setLastBuildDate($unixTime)
+    public function setLastBuildDate(int $unixTime): void
     {
         $this->lastBuildDate = date("r (T)", $unixTime);
     }
@@ -120,7 +120,7 @@ class Channel implements Tag
      *
      * @param string $category Category channel belongs to
      */
-    public function setCategory($category)
+    public function setCategory(string $category): void
     {
         $this->category = $category;
     }
@@ -131,7 +131,7 @@ class Channel implements Tag
      *
      * @param string $generator Software that generated feed
      */
-    public function setGenerator($generator)
+    public function setGenerator(string $generator): void
     {
         $this->generator = $generator;
     }
@@ -142,7 +142,7 @@ class Channel implements Tag
      *
      * @param string $url Url to documentation related to channel
      */
-    public function setDocs($url)
+    public function setDocs(string $url): void
     {
         if (!filter_var($url, FILTER_VALIDATE_URL)) {
             throw new Exception("Docs is invalid");
@@ -156,7 +156,7 @@ class Channel implements Tag
      *
      * @param Cloud $cloud Encapsulated RSS cloud tag
      */
-    public function setCloud(Cloud $cloud)
+    public function setCloud(Cloud $cloud): void
     {
         $this->cloud = $cloud;
     }
@@ -167,7 +167,7 @@ class Channel implements Tag
      *
      * @param integer $number
      */
-    public function setTtl($number)
+    public function setTtl(int $number): void
     {
         if (!is_int($number) || $number < 0) {
             throw new Exception("Ttl is invalid");
@@ -181,7 +181,7 @@ class Channel implements Tag
      *
      * @param Image $image Encapsulated RSS image tag
      */
-    public function setImage(Image $image)
+    public function setImage(Image $image): void
     {
         $this->image = $image;
     }
@@ -192,7 +192,7 @@ class Channel implements Tag
      *
      * @param Input $textInput Encapsulated RSS textInput tag
      */
-    public function setTextInput(Input $textInput)
+    public function setTextInput(Input $textInput): void
     {
         $this->textInput = $textInput;
     }
@@ -203,7 +203,7 @@ class Channel implements Tag
      *
      * @param SkipHours $skipHours Encapsulated RSS skipHours tag
      */
-    public function setSkipHours(SkipHours $skipHours)
+    public function setSkipHours(SkipHours $skipHours): void
     {
         $this->skipHours = $skipHours;
     }
@@ -214,7 +214,7 @@ class Channel implements Tag
      *
      * @param SkipDays $skipDays Encapsulated RSS skipDays tag
      */
-    public function setSkipDays(SkipDays $skipDays)
+    public function setSkipDays(SkipDays $skipDays): void
     {
         $this->skipDays = $skipDays;
     }
@@ -225,7 +225,7 @@ class Channel implements Tag
      *
      * @param Item $item Encapsulated RSS item tag
      */
-    public function addItem(Item $item)
+    public function addItem(Item $item): void
     {
         $this->item[] = $item;
     }
@@ -235,7 +235,7 @@ class Channel implements Tag
      *
      * @param Tag $tag
      */
-    public function addCustomTag(Tag $tag)
+    public function addCustomTag(Tag $tag): void
     {
         $this->extra[] = $tag;
     }

@@ -15,7 +15,7 @@ class SkipHours implements Tag
      * @param integer[] $days Hours to skip (eg: [0,1,2,3,4,5,6,7])
      * @throws Exception
      */
-    public function __construct($hours)
+    public function __construct(array $hours)
     {
         if (!is_array($hours)) {
             throw new Exception("SkipHours argument must be an array");

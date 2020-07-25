@@ -22,7 +22,7 @@ class Cloud implements Tag
      * @param string $registerProcedure RSS register procedure on that url
      * @param string $protocol Protocol to be used in connecting to domain.
      */
-    public function __construct($domain, $port, $path, $registerProcedure, $protocol)
+    public function __construct(string $domain, int $port, string $path, string $registerProcedure, string $protocol)
     {
         $this->domain = $domain;
         $this->port = $port;

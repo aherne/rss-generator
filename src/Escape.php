@@ -13,7 +13,7 @@ class Escape implements Tag
      *
      * @param string $text RSS description tag body
      */
-    public function __construct($text)
+    public function __construct(string $text)
     {
         $this->text = $text;
     }

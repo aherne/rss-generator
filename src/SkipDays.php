@@ -15,7 +15,7 @@ class SkipDays implements Tag
      * @param string[] $days Names of week days to skip (eg: ["Saturday", "Sunday"])
      * @throws Exception
      */
-    public function __construct($days)
+    public function __construct(array $days)
     {
         if (!is_array($days)) {
             throw new Exception("SkipDays argument must be an array");

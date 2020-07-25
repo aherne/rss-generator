@@ -21,7 +21,7 @@ class Image implements Tag
      * @param string $title Image textual description.
      * @param string $link URL pointing to image source.
      */
-    public function __construct($url, $title, $link)
+    public function __construct(string $url, string $title, string $link)
     {
         $this->url = $url;
         $this->title = $title;
@@ -33,7 +33,7 @@ class Image implements Tag
      *
      * @param integer $width Value of image width
      */
-    public function setWidth($width)
+    public function setWidth(int $width): void
     {
         $this->width = $width;
     }
@@ -43,7 +43,7 @@ class Image implements Tag
      *
      * @param integer $height Value of image height
      */
-    public function setHeight($height)
+    public function setHeight(int $height): void
     {
         $this->height = $height;
     }
@@ -53,7 +53,7 @@ class Image implements Tag
      *
      * @param string $description Value of image textual description
      */
-    public function setDescription($description)
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }

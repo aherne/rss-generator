@@ -19,7 +19,7 @@ class Input implements Tag
      * @param string $link The URL where the data input into the textbox will be sent
      * @param string $description Description for the textbox
      */
-    public function __construct($name, $title, $link, $description)
+    public function __construct(string $name, string $title, string $link, string $description)
     {
         $this->name = $name;
         $this->title = $title;
