@@ -225,7 +225,8 @@ class Channel implements Tag
      *
      * @param Item $item Encapsulated RSS item tag
      */
-    public function addItem(Item $item) {
+    public function addItem(Item $item)
+    {
         $this->item[] = $item;
     }
 
@@ -234,7 +235,8 @@ class Channel implements Tag
      *
      * @param Tag $tag
      */
-    public function addCustomTag(Tag $tag) {
+    public function addCustomTag(Tag $tag)
+    {
         $this->extra[] = $tag;
     }
         
@@ -242,19 +244,20 @@ class Channel implements Tag
      * {@inheritDoc}
      * @see \Lucinda\RSS\Tag::__toString()
      */
-    public function __toString() {
+    public function __toString()
+    {
         $output = "";
         $parameters = get_object_vars($this);
-        foreach($parameters as $key=>$value) {
+        foreach ($parameters as $key=>$value) {
             if (empty($value)) {
                 continue;
             }
-            if($key == "extra") {
-                foreach($value as $v) {
+            if ($key == "extra") {
+                foreach ($value as $v) {
                     $output .= $v;
                 }
-            } else if (is_array($value)) {
-                foreach($value as $v1) {
+            } elseif (is_array($value)) {
+                foreach ($value as $v1) {
                     $output .= "<".$key.">".$v1."</".$key.">";
                 }
             } else {

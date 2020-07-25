@@ -16,12 +16,13 @@ class Image implements Tag
 
     /**
      * Image constructor.
-     * 
+     *
      * @param string $url URL of website presenting image
      * @param string $title Image textual description.
      * @param string $link URL pointing to image source.
      */
-    public function __construct($url, $title, $link) {
+    public function __construct($url, $title, $link)
+    {
         $this->url = $url;
         $this->title = $title;
         $this->link = $link;
@@ -61,11 +62,14 @@ class Image implements Tag
      * {@inheritDoc}
      * @see \Lucinda\RSS\Tag::__toString()
      */
-    public function __toString() {
+    public function __toString()
+    {
         $output = "";
         $parameters = get_object_vars($this);
-        foreach($parameters as $key=>$value) {
-            if(empty($value)) continue;
+        foreach ($parameters as $key=>$value) {
+            if (empty($value)) {
+                continue;
+            }
             $output .= "<".$key.">".$value."</".$key.">";
         }
         return "<image>".$output."</image>";

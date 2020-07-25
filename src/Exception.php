@@ -7,4 +7,3 @@ namespace Lucinda\RSS;
 class Exception extends \Exception
 {
 }
-

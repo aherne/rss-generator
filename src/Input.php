@@ -31,10 +31,11 @@ class Input implements Tag
      * {@inheritDoc}
      * @see \Lucinda\RSS\Tag::__toString()
      */
-    public function __toString() {
+    public function __toString()
+    {
         $output = "";
         $parameters = get_object_vars($this);
-        foreach($parameters as $key=>$value) {
+        foreach ($parameters as $key=>$value) {
             $output .= "<".$key.">".$value."</".$key.">";
         }
         return "<textInput>".$output."</textInput>";

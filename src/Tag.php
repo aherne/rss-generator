@@ -11,5 +11,5 @@ interface Tag
      *
      * @return string
      */
-    function __toString();
+    public function __toString();
 }

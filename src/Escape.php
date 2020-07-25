@@ -10,7 +10,7 @@ class Escape implements Tag
     
     /**
      * Sets description body
-     * 
+     *
      * @param string $text RSS description tag body
      */
     public function __construct($text)

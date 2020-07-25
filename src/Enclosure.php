@@ -13,12 +13,13 @@ class Enclosure implements Tag
 
     /**
      * Enclosure constructor.
-     * 
+     *
      * @param string $url Url says where the media object is located.
      * @param integer $length Byte size of media object
      * @param string $type Mime type of media object.
      */
-    public function __construct($url, $length, $type) {
+    public function __construct($url, $length, $type)
+    {
         $this->url = $url;
         $this->length = $length;
         $this->type = $type;
@@ -32,7 +33,7 @@ class Enclosure implements Tag
     {
         $output = "";
         $vars = get_object_vars($this);
-        foreach($vars as $key=>$value) {
+        foreach ($vars as $key=>$value) {
             $output .= $key.'="'.$value.'" ';
         }
         return "<enclosure ".$output."/>";

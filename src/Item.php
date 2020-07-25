@@ -35,11 +35,14 @@ class Item implements Tag
      * Sets item URL according to specifications:
      * https://www.rssboard.org/rss-profile#element-channel-item-url
      *
-     * @param string $link URL of feed item.
+     * @param string $url URL of feed item.
      */
-    public function setLink($link)
+    public function setLink($url)
     {
-        $this->link = $link;
+        if (!filter_var($url, FILTER_VALIDATE_URL)) {
+            throw new Exception("Invalid feed url");
+        }
+        $this->link = $url;
     }
 
     /**
@@ -87,7 +90,7 @@ class Item implements Tag
      *
      * @param Enclosure $enclosure Encapsulated RSS enclosure tag
      */
-    public function setEnclosure($enclosure)
+    public function setEnclosure(Enclosure $enclosure)
     {
         $this->enclosure = $enclosure;
     }
@@ -133,7 +136,8 @@ class Item implements Tag
      *
      * @param Tag $tag
      */
-    public function addCustomTag(Tag $tag) {
+    public function addCustomTag(Tag $tag)
+    {
         $this->extra[] = $tag;
     }
     
@@ -141,15 +145,16 @@ class Item implements Tag
      * {@inheritDoc}
      * @see \Lucinda\RSS\Tag::__toString()
      */
-    public function __toString() {
+    public function __toString()
+    {
         $output = "";
         $parameters = get_object_vars($this);
-        foreach($parameters as $key=>$value) {
+        foreach ($parameters as $key=>$value) {
             if (empty($value)) {
                 continue;
             }
-            if($key == "extra") {
-                foreach($value as $v) {
+            if ($key == "extra") {
+                foreach ($value as $v) {
                     $output .= $v;
                 }
             } else {

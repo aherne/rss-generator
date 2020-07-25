@@ -11,16 +11,16 @@ class SkipDays implements Tag
     
     /**
      * Sets days of the week during which the feed is not updated
-     * 
+     *
      * @param string[] $days Names of week days to skip (eg: ["Saturday", "Sunday"])
      * @throws Exception
      */
     public function __construct($days)
     {
-        if(!is_array($days)) {
+        if (!is_array($days)) {
             throw new Exception("SkipDays argument must be an array");
         }
-        array_map(function($item) {
+        array_map(function ($item) {
             if (!in_array($item, ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday"])) {
                 throw new Exception("Invalid day: ".$item);
             }
@@ -35,7 +35,7 @@ class SkipDays implements Tag
     public function __toString()
     {
         $output = "";
-        foreach($this->days as $day) {
+        foreach ($this->days as $day) {
             $output .= "<day>".$day."</day>";
         }
         return "<skipDays>".$output."</skipDays>";
