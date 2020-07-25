@@ -6,9 +6,9 @@ API requires PHP7.1+ and comes with a class for each RSS tag, all belonging to L
 
 | Class | Description |
 | --- | --- |
-| [RSS](#rss) | Encapsulates *rss* tag, the grand holder of your RSS feed |
-| [Channel](#channel) | Encapsulates *channel* tag, child of *rss*, containing your RSS feed description |
-| [Item](#item) | Encapsulates *item* tag, child of *channel*, containing an article in your RSS feed |
+| [RSS](#rss) | Encapsulates [**rss**](https://www.rssboard.org/rss-profile#element-rss) tag, the grand holder of your RSS feed |
+| [Channel](#channel) | Encapsulates [**channel**](https://www.rssboard.org/rss-profile#element-channel) tag, child of [**rss**](https://www.rssboard.org/rss-profile#element-rss), containing your RSS feed description |
+| [Item](#item) | Encapsulates [**item**](https://www.rssboard.org/rss-profile#element-channel-item) tag, child of [**channel**](https://www.rssboard.org/rss-profile#element-channel), containing an article in your RSS feed |
 
 Simple example:
 
@@ -22,58 +22,60 @@ echo $rss; // displays RSS feed
 
 ## RSS<a href="rss"></a>
 
-Class [RSS](https://github.com/aherne/rss-generator/blob/master/src/RSS.php) encapsulates **rss** tag logic via following void returning methods:
+Class [RSS](https://github.com/aherne/rss-generator/blob/master/src/RSS.php) encapsulates [**rss**](https://www.rssboard.org/rss-profile#element-rss) tag logic via following void returning methods:
 
 | Method | Arguments | Description |
 | --- | --- | --- |
 | __construct | [Channel](#channel) $channel | Constructs feed based on mandatory RSS **channel** |
 | addNamespace | string $name<br/>string $url | Adds a RSS namespace able to add custom functionality to feed |
 
+To understand more how namespaces can be used to add non-standard tags to feed, visit [this guide](https://www.rssboard.org/rss-profile#namespace-elements)!
+
 ## Channel<a href="channel"></a>
 
-Class [Channel](https://github.com/aherne/rss-generator/blob/master/src/Channel.php) encapsulates **channel** tag logic via following void returning methods:
+Class [Channel](https://github.com/aherne/rss-generator/blob/master/src/Channel.php) encapsulates [**channel**](https://www.rssboard.org/rss-profile#element-channel) tag logic via following void returning methods:
 
 | Method | Arguments | Description |
 | --- | --- | --- |
-| __construct | string $title<br/>string $link<br/>string $description | Sets values of required sub-tags: **title**, **link**, **description**[1] |
-| addItem | [Item](#item) $item | Sets value of sub-tag **item** |
-| setLanguage | string $language | Sets value of sub-tag **language** |
-| setCopyright | string $copyright | Sets value of sub-tag **copyright** |
-| setManagingEditor | string $email | Sets value of sub-tag **managingEditor** |
-| setWebMaster | string $email | Sets value of sub-tag **webMaster** |
-| setPubDate | int $unixTime | Sets value of sub-tag **pubDate** by corresponding unix time |
-| setLastBuildDate | int $unixTime | Sets value of sub-tag **lastBuildDate** by corresponding unix time |
-| setCategory | string $category | Sets value of sub-tag **category** |
-| setGenerator | string $generator | Sets value of sub-tag **generator** |
-| setDocs | string $url | Sets value of sub-tag **docs** |
-| setCloud | [Cloud](https://github.com/aherne/rss-generator/blob/master/src/Cloud.php) $cloud | Sets value of sub-tag **cloud** |
-| setTtl | int $number | Sets value of sub-tag **ttl** |
-| setImage | [Image](https://github.com/aherne/rss-generator/blob/master/src/Image.php) $image | Sets value of sub-tag **image** |
-| setTextInput | [Input](https://github.com/aherne/rss-generator/blob/master/src/Input.php) $textInput | Sets value of sub-tag **textInput** |
-| setSkipHours | [SkipHours](https://github.com/aherne/rss-generator/blob/master/src/SkipHours.php) $skipHours | Sets value of sub-tag **skipHours** |
-| setSkipDays | [SkipDays](https://github.com/aherne/rss-generator/blob/master/src/SkipDays.php) $skipDays | Sets value of sub-tag **skipDays** |
+| __construct | string $title<br/>string $link<br/>string $description | Sets values of required sub-tags: [**title**](https://www.rssboard.org/rss-profile#element-channel-title), [**link**](https://www.rssboard.org/rss-profile#element-channel-link), [**description**](https://www.rssboard.org/rss-profile#element-channel-description) [1] |
+| addItem | [Item](#item) $item | Sets value of sub-tag [**item**](https://www.rssboard.org/rss-profile#element-channel-item) |
+| setLanguage | string $language | Sets value of sub-tag [**language**](https://www.rssboard.org/rss-profile#element-channel-language) |
+| setCopyright | string $copyright | Sets value of sub-tag [**copyright**](https://www.rssboard.org/rss-profile#element-channel-copyright) |
+| setManagingEditor | string $email | Sets value of sub-tag [**managingEditor**](https://www.rssboard.org/rss-profile#element-channel-managingeditor) |
+| setWebMaster | string $email | Sets value of sub-tag [**webMaster**](https://www.rssboard.org/rss-profile#element-channel-webmaster) |
+| setPubDate | int $unixTime | Sets value of sub-tag [**pubDate**](https://www.rssboard.org/rss-profile#element-channel-pubdate) by corresponding unix time |
+| setLastBuildDate | int $unixTime | Sets value of sub-tag [**lastBuildDate**](https://www.rssboard.org/rss-profile#element-channel-lastbuilddate) by corresponding unix time |
+| setCategory | string $category | Sets value of sub-tag [**category**](https://www.rssboard.org/rss-profile#element-channel-category) |
+| setGenerator | string $generator | Sets value of sub-tag [**generator**](https://www.rssboard.org/rss-profile#element-channel-generator) |
+| setDocs | string $url | Sets value of sub-tag [**docs**](https://www.rssboard.org/rss-profile#element-channel-docs) |
+| setCloud | [Cloud](https://github.com/aherne/rss-generator/blob/master/src/Cloud.php) $cloud | Sets value of sub-tag [**cloud**](https://www.rssboard.org/rss-profile#element-channel-cloud) |
+| setTtl | int $number | Sets value of sub-tag [**ttl**](https://www.rssboard.org/rss-profile#element-channel-ttl) |
+| setImage | [Image](https://github.com/aherne/rss-generator/blob/master/src/Image.php) $image | Sets value of sub-tag [**image**](https://www.rssboard.org/rss-profile#element-channel-image) |
+| setTextInput | [Input](https://github.com/aherne/rss-generator/blob/master/src/Input.php) $textInput | Sets value of sub-tag [**textInput**](https://www.rssboard.org/rss-profile#element-channel-textinput) |
+| setSkipHours | [SkipHours](https://github.com/aherne/rss-generator/blob/master/src/SkipHours.php) $skipHours | Sets value of sub-tag [**skipHours**](https://www.rssboard.org/rss-profile#element-channel-skiphours) |
+| setSkipDays | [SkipDays](https://github.com/aherne/rss-generator/blob/master/src/SkipDays.php) $skipDays | Sets value of sub-tag [**skipDays**](https://www.rssboard.org/rss-profile#element-channel-skipdays) |
 | addCustomTag | [Tag](#Tag) $tag | Adds custom non-standard sub-tag |
 
-[1] Value of $description is automatically escaped using CDATA via [Escape](#escape) class, in order to allow HTML inside
+[1] Value of $description is automatically escaped using CDATA via [Escape](#escape) class, in order to make it possible to put HTML inside
 
 ## Item<a href="item"></a>
 
-Class [Item](https://github.com/aherne/rss-generator/blob/master/src/Item.php) encapsulates **item** tag logic via following void returning methods:
+Class [Item](https://github.com/aherne/rss-generator/blob/master/src/Item.php) encapsulates [**item**](https://www.rssboard.org/rss-profile#element-channel-item) tag logic via following void returning methods:
 
 | Method | Arguments | Specification |
 | --- | --- | --- |
-| __construct | string $title<br/>string $description | Sets values of required sub-tags: **title**, **description**[1] |
-| setLink | string $url | Sets value of sub-tag **link** |
-| setAuthor | string $email | Sets value of sub-tag **author** |
-| setCategories | string $category | Sets value of sub-tag **categories** |
-| setComments | string $url | Sets value of sub-tag **comments** |
-| setEnclosure | [Enclosure](https://github.com/aherne/rss-generator/blob/master/src/Enclosure.php) $enclosure | Sets value of sub-tag **enclosure** |
-| setGuid | string $guid | Sets value of sub-tag **guid** |
-| setPubDate | int $unixTime | Sets value of sub-tag **pubDate** by corresponding unix time |
-| setSource | string $url | Sets value of sub-tag **source** |
+| __construct | string $title<br/>string $description | Sets values of required sub-tags: [**title**](https://www.rssboard.org/rss-profile#element-channel-item-title), [**description**](https://www.rssboard.org/rss-profile#element-channel-item-description) [1] |
+| setLink | string $url | Sets value of sub-tag [**link**](https://www.rssboard.org/rss-profile#element-channel-item-link) |
+| setAuthor | string $email | Sets value of sub-tag [**author**](https://www.rssboard.org/rss-profile#element-channel-item-author) |
+| setCategories | string $category | Sets value of sub-tag [**categories**](https://www.rssboard.org/rss-profile#element-channel-item-categories) |
+| setComments | string $url | Sets value of sub-tag [**comments**](https://www.rssboard.org/rss-profile#element-channel-item-comments) |
+| setEnclosure | [Enclosure](https://github.com/aherne/rss-generator/blob/master/src/Enclosure.php) $enclosure | Sets value of sub-tag [**enclosure**](https://www.rssboard.org/rss-profile#element-channel-item-enclosure) |
+| setGuid | string $guid | Sets value of sub-tag [**guid**](https://www.rssboard.org/rss-profile#element-channel-item-guid) |
+| setPubDate | int $unixTime | Sets value of sub-tag [**pubDate**](https://www.rssboard.org/rss-profile#element-channel-item-pubdate) by corresponding unix time |
+| setSource | string $url | Sets value of sub-tag [**source**](https://www.rssboard.org/rss-profile#element-channel-item-source) |
 | addCustomTag | [Tag](#Tag) $tag | Adds custom non-standard sub-tag |
 
-[1] Value of $description is automatically escaped using CDATA via [Escape](#escape) class, in order to allow HTML inside
+[1] Value of $description is automatically escaped using CDATA via [Escape](#escape) class, in order to make it possible to put HTML inside
 
 ## Tag<a href="tag"></a>
 

@@ -3,7 +3,7 @@ namespace Lucinda\RSS;
 
 /**
  * Encapsulates a RSS feed itself according to specifications:
- * https://www.rssboard.org/media-rss
+ * https://www.rssboard.org/rss-profile#element-rss
  */
 class RSS implements Tag
 {
