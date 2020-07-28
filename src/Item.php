@@ -145,6 +145,7 @@ class Item implements Tag
      * {@inheritDoc}
      * @see \Lucinda\RSS\Tag::__toString()
      */
+    
     public function __toString()
     {
         $output = "";
@@ -157,6 +158,8 @@ class Item implements Tag
                 foreach ($value as $v) {
                     $output .= $v;
                 }
+            } elseif ($value instanceof Tag) {
+                $output .= $value;
             } else {
                 $output .= "<".$key.">".$value."</".$key.">";
             }

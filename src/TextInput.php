@@ -5,7 +5,7 @@ namespace Lucinda\RSS;
  * Encapsulates a RSS textInput tag according to specifications:
  * https://www.rssboard.org/rss-profile#element-channel-textinput
  */
-class Input implements Tag
+class TextInput implements Tag
 {
     private $name;
     private $title;

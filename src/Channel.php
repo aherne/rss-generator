@@ -190,9 +190,9 @@ class Channel implements Tag
      * Sets text input box that will be displayed with channel according to specifications:
      * https://www.rssboard.org/rss-profile#element-channel-textinput
      *
-     * @param Input $textInput Encapsulated RSS textInput tag
+     * @param TextInput $textInput Encapsulated RSS textInput tag
      */
-    public function setTextInput(Input $textInput)
+    public function setTextInput(TextInput $textInput)
     {
         $this->textInput = $textInput;
     }
@@ -244,6 +244,7 @@ class Channel implements Tag
      * {@inheritDoc}
      * @see \Lucinda\RSS\Tag::__toString()
      */
+    
     public function __toString()
     {
         $output = "";
@@ -260,6 +261,8 @@ class Channel implements Tag
                 foreach ($value as $v1) {
                     $output .= "<".$key.">".$v1."</".$key.">";
                 }
+            } elseif ($value instanceof Tag) {
+                $output .= $value;
             } else {
                 $output .= "<".$key.">".$value."</".$key.">";
             }
