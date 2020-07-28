@@ -5,7 +5,7 @@ namespace Lucinda\RSS;
  * Encapsulates a RSS textInput tag according to specifications:
  * https://www.rssboard.org/rss-profile#element-channel-textinput
  */
-class Input implements Tag
+class TextInput implements Tag
 {
     private $name;
     private $title;
@@ -23,8 +23,11 @@ class Input implements Tag
     {
         $this->name = $name;
         $this->title = $title;
+        if (!filter_var($link, FILTER_VALIDATE_URL)) {
+            throw new Exception("Invalid input link attribute");
+        }
         $this->link = $link;
-        $this->description = $description;
+        $this->description = new Escape($description);
     }
     
     /**

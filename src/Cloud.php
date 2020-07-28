@@ -21,9 +21,13 @@ class Cloud implements Tag
      * @param string $path Url to connect to on that domain
      * @param string $registerProcedure RSS register procedure on that url
      * @param string $protocol Protocol to be used in connecting to domain.
+     * @throws Exception If domain is invalid
      */
     public function __construct(string $domain, int $port, string $path, string $registerProcedure, string $protocol)
     {
+        if (!filter_var($domain, FILTER_VALIDATE_DOMAIN)) {
+            throw new Exception("Invalid domain");
+        }
         $this->domain = $domain;
         $this->port = $port;
         $this->path = $path;

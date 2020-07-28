@@ -65,7 +65,7 @@ class Item implements Tag
      *
      * @param string $category Category feed item belongs
      */
-    public function setCategories(string $category): void
+    public function setCategory(string $category): void
     {
         $this->category = $category;
     }
@@ -157,6 +157,8 @@ class Item implements Tag
                 foreach ($value as $v) {
                     $output .= $v;
                 }
+            } elseif ($value instanceof Tag) {
+                $output .= $value;
             } else {
                 $output .= "<".$key.">".$value."</".$key.">";
             }

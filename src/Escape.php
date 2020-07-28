@@ -4,7 +4,7 @@ namespace Lucinda\RSS;
 /**
  * Escapes descriptions of illegal characters with a CDATA tag
  */
-class Escape implements Tag
+class Escape
 {
     private $text;
     

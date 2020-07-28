@@ -23,8 +23,14 @@ class Image implements Tag
      */
     public function __construct(string $url, string $title, string $link)
     {
+        if (!filter_var($url, FILTER_VALIDATE_URL)) {
+            throw new Exception("Invalid image url attribute");
+        }
         $this->url = $url;
         $this->title = $title;
+        if (!filter_var($link, FILTER_VALIDATE_URL)) {
+            throw new Exception("Invalid image link attribute");
+        }
         $this->link = $link;
     }
 
@@ -55,7 +61,7 @@ class Image implements Tag
      */
     public function setDescription(string $description): void
     {
-        $this->description = $description;
+        $this->description = new Escape($description);
     }
     
     /**

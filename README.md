@@ -2,7 +2,7 @@
 
 Very light weight PHP API encapsulating entire [RSS-2](https://validator.w3.org/feed/docs/rss2.html) specification, the worldwide standard at this moment for generating RSS feeds.
 
-API requires PHP7.1+ and comes with a class for each RSS tag, all belonging to Lucinda\RSS namespace, each implementing [Tag](#Tag) interface. Following are factually mandatory:
+API only requires PHP7.1+ and comes with a class for each RSS tag, all belonging to Lucinda\RSS namespace, each implementing [Tag](#Tag) interface. Following are factually mandatory:
 
 | Class | Description |
 | --- | --- |
@@ -18,6 +18,13 @@ $channel->addItem(new \Lucinda\RSS\Item("STDOUT MVC API", "STDOUT MVC API was up
 $channel->addItem(new \Lucinda\RSS\Item("STDERR MVC API", "STDERR MVC API was upgraded to a new version"));
 $rss = new \Lucinda\RSS\RSS($channel);
 echo $rss; // displays RSS feed
+```
+
+API enjoys 100% unit test coverage for its classes and methods, reproductible in console by running:
+
+```console
+composer update
+php test.php
 ```
 
 ## RSS<a href="rss"></a>
