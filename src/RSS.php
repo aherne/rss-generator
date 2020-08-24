@@ -43,7 +43,7 @@ class RSS implements Tag
      */
     public function __toString()
     {
-        $attributes = 'version="2.0';
+        $attributes = 'version="2.0"';
         foreach ($this->namespaces as $name=>$url) {
             $attributes.=' xmlns:'.$name.'="'.$url.'"';
         }
