@@ -258,7 +258,11 @@ class Channel implements Tag
                 }
             } elseif (is_array($value)) {
                 foreach ($value as $v1) {
-                    $output .= "<".$key.">".$v1."</".$key.">";
+                    if($v1 instanceof Tag) {
+                        $output .= $v1;
+                    } else {
+                        $output .= "<".$key.">".$v1."</".$key.">";
+                    }
                 }
             } elseif ($value instanceof Tag) {
                 $output .= $value;
