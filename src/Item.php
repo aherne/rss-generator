@@ -114,7 +114,7 @@ class Item implements Tag
      */
     public function setPubDate(int $unixTime): void
     {
-        $this->pubDate = date("r (T)", $unixTime);
+        $this->pubDate = date("r", $unixTime);
     }
 
     /**
