@@ -7,11 +7,11 @@ namespace Lucinda\RSS;
  */
 class Cloud implements Tag
 {
-    private $domain;
-    private $port;
-    private $path;
-    private $registerProcedure;
-    private $protocol;
+    private string $domain;
+    private int $port;
+    private string $path;
+    private string $registerProcedure;
+    private string $protocol;
 
     /**
      * Cloud constructor.
@@ -37,9 +37,9 @@ class Cloud implements Tag
     
     /**
      * {@inheritDoc}
-     * @see \Lucinda\RSS\Tag::__toString()
+     * @see Tag::__toString()
      */
-    public function __toString()
+    public function __toString(): string
     {
         $output = "";
         $vars = get_object_vars($this);

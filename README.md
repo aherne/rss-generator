@@ -2,7 +2,7 @@
 
 Very light weight PHP API encapsulating entire [RSS-2](https://validator.w3.org/feed/docs/rss2.html) specification, the worldwide standard at this moment for generating RSS feeds.
 
-API only requires PHP7.1+ and comes with a class for each RSS tag, all belonging to Lucinda\RSS namespace, each implementing [Tag](#Tag) interface. Following are factually mandatory:
+API only requires PHP 8.1+ and comes with a class for each RSS tag, all belonging to Lucinda\RSS namespace, each implementing [Tag](#Tag) interface. Following are factually mandatory:
 
 | Class | Description |
 | --- | --- |
@@ -26,6 +26,8 @@ API enjoys 100% unit test coverage for its classes and methods, reproductible in
 composer update
 php test.php
 ```
+
+*NOTICE*: since superglobal *__toString* is not unit testable, unit tests were done on *toString* method instead!
 
 ## RSS<a href="rss"></a>
 
@@ -86,11 +88,7 @@ Class [Item](https://github.com/aherne/rss-generator/blob/master/src/Item.php) e
 
 ## Tag<a href="tag"></a>
 
-Interface [Tag](https://github.com/aherne/rss-generator/blob/master/src/Tag.php) defines common ability of all RSS tags to be stringified via following method:
-
-| Method | Arguments | Returns |
-| --- | --- | --- |
-| __toString | - | string |
+Interface [Tag](https://github.com/aherne/rss-generator/blob/master/src/Tag.php) defines common ability of all RSS tags to be [\Stringable](https://www.php.net/manual/en/class.stringable.php)
 
 ## Escape<a href="escape"></a>
 

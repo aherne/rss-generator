@@ -7,11 +7,11 @@ namespace Lucinda\RSS;
  */
 class Image implements Tag
 {
-    private $url;
-    private $title;
-    private $link;
-    private $width;
-    private $height;
+    private string $url;
+    private string $title;
+    private string $link;
+    private ?int $width;
+    private ?int $height;
     private $description;
 
     /**
@@ -20,6 +20,7 @@ class Image implements Tag
      * @param string $url URL of website presenting image
      * @param string $title Image textual description.
      * @param string $link URL pointing to image source.
+     * @throws Exception
      */
     public function __construct(string $url, string $title, string $link)
     {
@@ -38,9 +39,13 @@ class Image implements Tag
      * Sets image width in pixels.
      *
      * @param integer $width Value of image width
+     * @throws Exception
      */
     public function setWidth(int $width): void
     {
+        if ($width<=0) {
+            throw new Exception("Image width should be greater than zero");
+        }
         $this->width = $width;
     }
 
@@ -48,9 +53,13 @@ class Image implements Tag
      * Sets image height in pixels.
      *
      * @param integer $height Value of image height
+     * @throws Exception
      */
     public function setHeight(int $height): void
     {
+        if ($height<=0) {
+            throw new Exception("Image height should be greater than zero");
+        }
         $this->height = $height;
     }
 
@@ -61,14 +70,15 @@ class Image implements Tag
      */
     public function setDescription(string $description): void
     {
-        $this->description = new Escape($description);
+        $escaped = new Escape($description);
+        $this->description = (string) $escaped;
     }
     
     /**
      * {@inheritDoc}
-     * @see \Lucinda\RSS\Tag::__toString()
+     * @see Tag::__toString()
      */
-    public function __toString()
+    public function __toString(): string
     {
         $output = "";
         $parameters = get_object_vars($this);

@@ -12,7 +12,10 @@
         }
     ],    
     "require-dev": {
-    	"lucinda/unit-testing": "^1.0"
+    	"lucinda/unit-testing": "^2.0"
+    },
+    "require": {
+      "php": "^8.1"
     },
     "autoload": {
     	"psr-4": {

@@ -34,8 +34,13 @@ class ImageTest
     }
         
 
-    public function __toString()
+    public function toString()
     {
         return new Result((string) $this->image == '<image><url>http://www.google.com</url><title>test title</title><link>http://www.google.com/asd.gif</link><width>640</width><height>480</height><description><![CDATA[asdfgh]]></description></image>');
+    }
+
+    public function __toString(): string
+    {
+        return "OK";
     }
 }

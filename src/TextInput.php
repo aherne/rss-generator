@@ -7,10 +7,10 @@ namespace Lucinda\RSS;
  */
 class TextInput implements Tag
 {
-    private $name;
-    private $title;
-    private $link;
-    private $description;
+    private string $name;
+    private string $title;
+    private string $link;
+    private string $description;
 
     /**
      * Input constructor.
@@ -18,6 +18,7 @@ class TextInput implements Tag
      * @param string $title Text to display on the submit button that will appear automatically next to the textbox
      * @param string $link The URL where the data input into the textbox will be sent
      * @param string $description Description for the textbox
+     * @throws Exception
      */
     public function __construct(string $name, string $title, string $link, string $description)
     {
@@ -27,14 +28,15 @@ class TextInput implements Tag
             throw new Exception("Invalid input link attribute");
         }
         $this->link = $link;
-        $this->description = new Escape($description);
+        $escaped = new Escape($description);
+        $this->description = (string) $escaped;
     }
     
     /**
      * {@inheritDoc}
-     * @see \Lucinda\RSS\Tag::__toString()
+     * @see Tag::__toString()
      */
-    public function __toString()
+    public function __toString(): string
     {
         $output = "";
         $parameters = get_object_vars($this);

@@ -142,10 +142,14 @@ class ChannelTest
         });
         return new Result(true);
     }
-        
 
-    public function __toString()
+    public function toString()
     {
         return new Result(((string) $this->channel) == '<channel><title>my title</title><link>http://www.google.com</link><description><![CDATA[my description]]></description><language>en</language><copyright>lucinda(c)</copyright><managingEditor>b@b.com</managingEditor><pubDate>Mon, 03 Feb 2020 04:05:06 +0200 (EET)</pubDate><category>cat</category><generator>gen</generator><docs>https://www.google.com</docs><cloud domain="server.example.com" port="80" path="/rpc" registerProcedure="cloud.notify" protocol="xml-rpc" /><ttl>123</ttl><image><url>http://dallas.example.com/masthead.gif</url><title>Dallas Times-Herald</title><link>http://dallas.example.com</link></image><textInput><name>a</name><title>b</title><link>https://www.yahoo.com</link><description><![CDATA[c]]></description></textInput><skipHours><hour>0</hour><hour>1</hour><hour>2</hour></skipHours><skipDays><day>Saturday</day><day>Sunday</day></skipDays><item><title>zzz</title><description><![CDATA[xxx]]></description></item><custom>hello</custom></channel>');
+    }
+
+    public function __toString(): string
+    {
+        return "OK";
     }
 }

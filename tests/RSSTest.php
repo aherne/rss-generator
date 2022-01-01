@@ -21,8 +21,13 @@ class RSSTest
     }
         
 
-    public function __toString()
+    public function toString()
     {
         return new Result((string) $this->object == '<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>test title</title><link>https://www.lucinda-framework.com</link><description><![CDATA[test description]]></description></channel></rss>');
+    }
+
+    public function __toString(): string
+    {
+        return "OK";
     }
 }

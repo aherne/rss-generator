@@ -7,26 +7,26 @@ namespace Lucinda\RSS;
  */
 class Channel implements Tag
 {
-    private $title;
-    private $link;
-    private $description;
-    private $language;
-    private $copyright;
-    private $managingEditor;
-    private $webMaster;
-    private $pubDate;
-    private $lastBuildDate;
-    private $category;
-    private $generator;
-    private $docs;
-    private $cloud;
-    private $ttl;
-    private $image;
-    private $textInput;
-    private $skipHours;
-    private $skipDays;
-    private $item = [];
-    private $extra = [];
+    private string $title;
+    private string $link;
+    private string $description;
+    private ?string $language = null;
+    private ?string $copyright = null;
+    private ?string $managingEditor = null;
+    private ?string $webMaster = null;
+    private ?string $pubDate = null;
+    private ?string $lastBuildDate = null;
+    private ?string $category = null;
+    private ?string $generator = null;
+    private ?string $docs = null;
+    private ?Cloud $cloud = null;
+    private ?int $ttl = null;
+    private ?Image $image = null;
+    private ?TextInput $textInput = null;
+    private ?SkipHours $skipHours = null;
+    private ?SkipDays $skipDays = null;
+    private array $item = [];
+    private array $extra = [];
 
     /**
      * Sets channel's required information: title, link and description
@@ -39,7 +39,8 @@ class Channel implements Tag
     {
         $this->title = $title;
         $this->link = $link;
-        $this->description = new Escape($description);
+        $escaped = new Escape($description);
+        $this->description = (string) $escaped;
     }
 
     /**
@@ -69,6 +70,7 @@ class Channel implements Tag
      * https://www.rssboard.org/rss-profile#element-channel-managingeditor
      *
      * @param string $email Email of managing editor
+     * @throws Exception
      */
     public function setManagingEditor(string $email): void
     {
@@ -82,7 +84,8 @@ class Channel implements Tag
      * Sets web master's email according to specifications:
      * https://www.rssboard.org/rss-profile#element-channel-webmaster
      *
-     * @param string $webMaster Email of webmaster
+     * @param string $email Email of webmaster
+     * @throws Exception
      */
     public function setWebMaster(string $email): void
     {
@@ -141,6 +144,7 @@ class Channel implements Tag
      * https://www.rssboard.org/rss-profile#element-channel-docs
      *
      * @param string $url Url to documentation related to channel
+     * @throws Exception
      */
     public function setDocs(string $url): void
     {
@@ -166,10 +170,11 @@ class Channel implements Tag
      * https://www.rssboard.org/rss-profile#element-channel-ttl
      *
      * @param integer $number
+     * @throws Exception
      */
     public function setTtl(int $number): void
     {
-        if (!is_int($number) || $number < 0) {
+        if ($number < 0) {
             throw new Exception("Ttl is invalid");
         }
         $this->ttl = $number;
@@ -242,9 +247,9 @@ class Channel implements Tag
         
     /**
      * {@inheritDoc}
-     * @see \Lucinda\RSS\Tag::__toString()
+     * @see Tag::__toString()
      */
-    public function __toString()
+    public function __toString(): string
     {
         $output = "";
         $parameters = get_object_vars($this);

@@ -4,9 +4,9 @@ namespace Lucinda\RSS;
 /**
  * Escapes descriptions of illegal characters with a CDATA tag
  */
-class Escape
+class Escape implements \Stringable
 {
-    private $text;
+    private string $text;
     
     /**
      * Sets description body
@@ -20,9 +20,9 @@ class Escape
         
     /**
      * {@inheritDoc}
-     * @see \Lucinda\RSS\Tag::__toString()
+     * @see \Stringable::__toString()
      */
-    public function __toString()
+    public function __toString(): string
     {
         return "<![CDATA[".$this->text."]]>";
     }

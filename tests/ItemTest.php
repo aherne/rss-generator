@@ -84,8 +84,13 @@ class ItemTest
     }
         
 
-    public function __toString()
+    public function toString()
     {
-        return new Result(((string) $this->object) == '<item><title>test title</title><link>https://www.flickr.com/aherne</link><description><![CDATA[test description]]></description><category>newspaper</category><comments>https://www.yahoo.com</comments><enclosure url="https://www.google.com/asd.jpg" length="123456" type="image/jpeg" /><guid>https://www.vk.com</guid><pubDate>Thu, 02 Jan 2020 03:04:05 +0200</pubDate><source>https://github.com/aherne</source><custom>hello</custom></item>');
+        return new Result(((string) $this->object) == '<item><title>test title</title><description><![CDATA[test description]]></description><link>https://www.flickr.com/aherne</link><category>newspaper</category><comments>https://www.yahoo.com</comments><enclosure url="https://www.google.com/asd.jpg" length="123456" type="image/jpeg" /><guid>https://www.vk.com</guid><pubDate>Thu, 02 Jan 2020 03:04:05 +0200</pubDate><source>https://github.com/aherne</source><custom>hello</custom></item>');
+    }
+
+    public function __toString(): string
+    {
+        return "OK";
     }
 }

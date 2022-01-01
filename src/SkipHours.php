@@ -7,21 +7,18 @@ namespace Lucinda\RSS;
  */
 class SkipHours implements Tag
 {
-    private $hours;
+    private array $hours;
     
     /**
      * Sets hours of the day during which the feed is not updated
      *
-     * @param integer[] $days Hours to skip (eg: [0,1,2,3,4,5,6,7])
+     * @param integer[] $hours Hours to skip (eg: [0,1,2,3,4,5,6,7])
      * @throws Exception
      */
     public function __construct(array $hours)
     {
-        if (!is_array($hours)) {
-            throw new Exception("SkipHours argument must be an array");
-        }
         array_map(function ($item) {
-            if (!is_int($item) || $item < 0 && $item > 23) {
+            if (!is_int($item) || $item < 0 || $item > 23) {
                 throw new Exception("Invalid hour: ".$item);
             }
         }, $hours);
@@ -30,9 +27,9 @@ class SkipHours implements Tag
     
     /**
      * {@inheritDoc}
-     * @see \Lucinda\RSS\Tag::__toString()
+     * @see Tag::__toString()
      */
-    public function __toString()
+    public function __toString(): string
     {
         $output = "";
         foreach ($this->hours as $hour) {

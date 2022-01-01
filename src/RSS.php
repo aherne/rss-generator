@@ -7,8 +7,8 @@ namespace Lucinda\RSS;
  */
 class RSS implements Tag
 {
-    private $channel;
-    private $namespaces = [];
+    private Channel $channel;
+    private array $namespaces = [];
     
     /**
      * Constructs feed based on mandatory RSS channel described by specification:
@@ -39,7 +39,7 @@ class RSS implements Tag
     
     /**
      * {@inheritDoc}
-     * @see \Lucinda\RSS\Tag::__toString()
+     * @see Tag::__toString()
      */
     public function __toString()
     {
