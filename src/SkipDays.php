@@ -1,4 +1,5 @@
 <?php
+
 namespace Lucinda\RSS;
 
 /**
@@ -7,26 +8,33 @@ namespace Lucinda\RSS;
  */
 class SkipDays implements Tag
 {
+    /**
+     * @var string[]
+     */
     private array $days;
-    
+
     /**
      * Sets days of the week during which the feed is not updated
      *
-     * @param string[] $days Names of week days to skip (eg: ["Saturday", "Sunday"])
+     * @param  string[] $days Names of week days to skip (eg: ["Saturday", "Sunday"])
      * @throws Exception
      */
     public function __construct(array $days)
     {
-        array_map(function ($item) {
-            if (!in_array($item, ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday"])) {
-                throw new Exception("Invalid day: ".$item);
-            }
-        }, $days);
+        array_map(
+            function ($item) {
+                if (!in_array($item, ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday","Sunday"])) {
+                    throw new Exception("Invalid day: ".$item);
+                }
+            },
+            $days
+        );
         $this->days = $days;
     }
-    
+
     /**
      * {@inheritDoc}
+     *
      * @see Tag::__toString()
      */
     public function __toString(): string

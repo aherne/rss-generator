@@ -1,4 +1,5 @@
 <?php
+
 namespace Lucinda\RSS;
 
 /**
@@ -8,8 +9,11 @@ namespace Lucinda\RSS;
 class RSS implements Tag
 {
     private Channel $channel;
+    /**
+     * @var array<string,string>
+     */
     private array $namespaces = [];
-    
+
     /**
      * Constructs feed based on mandatory RSS channel described by specification:
      * https://www.rssboard.org/rss-profile#element-channel
@@ -20,13 +24,13 @@ class RSS implements Tag
     {
         $this->channel = $channel;
     }
-    
+
     /**
      * Adds a RSS namespace able to be used in defining custom functionality to feed, as exemplified by specification:
      * https://www.rssboard.org/rss-profile#namespace-elements
      *
-     * @param string $name Name of custom RSS namespace (without 'xmlns:')
-     * @param string $url URL where specification is defined
+     * @param  string $name Name of custom RSS namespace (without 'xmlns:')
+     * @param  string $url  URL where specification is defined
      * @throws Exception
      */
     public function addNamespace(string $name, string $url): void
@@ -36,12 +40,13 @@ class RSS implements Tag
         }
         $this->namespaces[$name] = $url;
     }
-    
+
     /**
      * {@inheritDoc}
+     *
      * @see Tag::__toString()
      */
-    public function __toString()
+    public function __toString(): string
     {
         $attributes = 'version="2.0"';
         foreach ($this->namespaces as $name=>$url) {

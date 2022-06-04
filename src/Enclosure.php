@@ -1,4 +1,5 @@
 <?php
+
 namespace Lucinda\RSS;
 
 /**
@@ -14,9 +15,9 @@ class Enclosure implements Tag
     /**
      * Enclosure constructor.
      *
-     * @param string $url Url says where the media object is located.
-     * @param integer $length Byte size of media object
-     * @param string $type Mime type of media object.
+     * @param  string  $url    Url says where the media object is located.
+     * @param  integer $length Byte size of media object
+     * @param  string  $type   Mime type of media object.
      * @throws Exception
      */
     public function __construct(string $url, int $length, string $type)
@@ -28,9 +29,10 @@ class Enclosure implements Tag
         $this->length = $length;
         $this->type = $type;
     }
-    
+
     /**
      * {@inheritDoc}
+     *
      * @see Tag::__toString()
      */
     public function __toString(): string

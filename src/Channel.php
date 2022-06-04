@@ -1,4 +1,5 @@
 <?php
+
 namespace Lucinda\RSS;
 
 /**
@@ -25,14 +26,20 @@ class Channel implements Tag
     private ?TextInput $textInput = null;
     private ?SkipHours $skipHours = null;
     private ?SkipDays $skipDays = null;
+    /**
+     * @var Item[]
+     */
     private array $item = [];
+    /**
+     * @var Tag[]
+     */
     private array $extra = [];
 
     /**
      * Sets channel's required information: title, link and description
      *
-     * @param string $title Sets the title of feed
-     * @param string $link URL of website associated with the feed
+     * @param string $title       Sets the title of feed
+     * @param string $link        URL of website associated with the feed
      * @param string $description Sets a description for feed
      */
     public function __construct(string $title, string $link, string $description)
@@ -69,7 +76,7 @@ class Channel implements Tag
      * Sets managing editor's email according to specifications:
      * https://www.rssboard.org/rss-profile#element-channel-managingeditor
      *
-     * @param string $email Email of managing editor
+     * @param  string $email Email of managing editor
      * @throws Exception
      */
     public function setManagingEditor(string $email): void
@@ -84,7 +91,7 @@ class Channel implements Tag
      * Sets web master's email according to specifications:
      * https://www.rssboard.org/rss-profile#element-channel-webmaster
      *
-     * @param string $email Email of webmaster
+     * @param  string $email Email of webmaster
      * @throws Exception
      */
     public function setWebMaster(string $email): void
@@ -143,7 +150,7 @@ class Channel implements Tag
      * Sets url to documentation related to channel according to specifications:
      * https://www.rssboard.org/rss-profile#element-channel-docs
      *
-     * @param string $url Url to documentation related to channel
+     * @param  string $url Url to documentation related to channel
      * @throws Exception
      */
     public function setDocs(string $url): void
@@ -169,7 +176,7 @@ class Channel implements Tag
      * Sets how long a channel can be cached before refreshing, in minutes (eg: 60) according to specifications:
      * https://www.rssboard.org/rss-profile#element-channel-ttl
      *
-     * @param integer $number
+     * @param  integer $number
      * @throws Exception
      */
     public function setTtl(int $number): void
@@ -244,9 +251,10 @@ class Channel implements Tag
     {
         $this->extra[] = $tag;
     }
-        
+
     /**
      * {@inheritDoc}
+     *
      * @see Tag::__toString()
      */
     public function __toString(): string
@@ -263,7 +271,7 @@ class Channel implements Tag
                 }
             } elseif (is_array($value)) {
                 foreach ($value as $v1) {
-                    if($v1 instanceof Tag) {
+                    if ($v1 instanceof Tag) {
                         $output .= $v1;
                     } else {
                         $output .= "<".$key.">".$v1."</".$key.">";

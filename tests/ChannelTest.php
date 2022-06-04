@@ -1,4 +1,5 @@
 <?php
+
 namespace Test\Lucinda\RSS;
 
 use Lucinda\RSS\Cloud;
@@ -14,7 +15,7 @@ use Lucinda\UnitTest\Result;
 class ChannelTest
 {
     private $channel;
-    
+
     public function __construct()
     {
         $this->channel = new Channel("my title", "http://www.google.com", "my description");
@@ -25,121 +26,123 @@ class ChannelTest
         $this->channel->setLanguage("en");
         return new Result(true);
     }
-        
+
 
     public function setCopyright()
     {
         $this->channel->setCopyright("lucinda(c)");
         return new Result(true);
     }
-        
+
 
     public function setManagingEditor()
     {
         $this->channel->setManagingEditor("a@a.com");
         return new Result(true);
     }
-        
+
 
     public function setWebMaster()
     {
         $this->channel->setManagingEditor("b@b.com");
         return new Result(true);
     }
-        
+
 
     public function setPubDate()
     {
         $this->channel->setPubDate(strtotime("2020-01-02 03:04:05"));
         return new Result(true);
     }
-        
+
 
     public function setLastBuildDate()
     {
         $this->channel->setPubDate(strtotime("2020-02-03 04:05:06"));
         return new Result(true);
     }
-        
+
 
     public function setCategory()
     {
         $this->channel->setCategory("cat");
         return new Result(true);
     }
-        
+
 
     public function setGenerator()
     {
         $this->channel->setGenerator("gen");
         return new Result(true);
     }
-        
+
 
     public function setDocs()
     {
         $this->channel->setDocs("https://www.google.com");
         return new Result(true);
     }
-        
+
 
     public function setCloud()
     {
         $this->channel->setCloud(new Cloud("server.example.com", 80, "/rpc", "cloud.notify", "xml-rpc"));
         return new Result(true);
     }
-        
+
 
     public function setTtl()
     {
         $this->channel->setTtl(123);
         return new Result(true);
     }
-        
+
 
     public function setImage()
     {
         $this->channel->setImage(new Image("http://dallas.example.com/masthead.gif", "Dallas Times-Herald", "http://dallas.example.com"));
         return new Result(true);
     }
-        
+
 
     public function setTextInput()
     {
         $this->channel->setTextInput(new TextInput("a", "b", "https://www.yahoo.com", "c"));
         return new Result(true);
     }
-        
+
 
     public function setSkipHours()
     {
         $this->channel->setSkipHours(new SkipHours([0,1,2]));
         return new Result(true);
     }
-        
+
 
     public function setSkipDays()
     {
         $this->channel->setSkipDays(new SkipDays(["Saturday", "Sunday"]));
         return new Result(true);
     }
-        
+
 
     public function addItem()
     {
         $this->channel->addItem(new Item("zzz", "xxx"));
         return new Result(true);
     }
-        
+
 
     public function addCustomTag()
     {
-        $this->channel->addCustomTag(new class implements Tag {
-            public function __toString()
-            {
-                return "<custom>hello</custom>";
+        $this->channel->addCustomTag(
+            new class () implements Tag {
+                public function __toString()
+                {
+                    return "<custom>hello</custom>";
+                }
             }
-        });
+        );
         return new Result(true);
     }
 

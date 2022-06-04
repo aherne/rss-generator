@@ -1,4 +1,5 @@
 <?php
+
 namespace Lucinda\RSS;
 
 /**
@@ -7,7 +8,7 @@ namespace Lucinda\RSS;
 class Escape implements \Stringable
 {
     private string $text;
-    
+
     /**
      * Sets description body
      *
@@ -17,9 +18,10 @@ class Escape implements \Stringable
     {
         $this->text = $text;
     }
-        
+
     /**
      * {@inheritDoc}
+     *
      * @see \Stringable::__toString()
      */
     public function __toString(): string

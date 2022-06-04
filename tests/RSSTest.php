@@ -1,4 +1,5 @@
 <?php
+
 namespace Test\Lucinda\RSS;
 
 use Lucinda\RSS\RSS;
@@ -8,7 +9,7 @@ use Lucinda\UnitTest\Result;
 class RSSTest
 {
     private $object;
-    
+
     public function __construct()
     {
         $this->object = new RSS(new Channel("test title", "https://www.lucinda-framework.com", "test description"));
@@ -19,7 +20,7 @@ class RSSTest
         $this->object->addNamespace("atom", "http://www.w3.org/2005/Atom");
         return new Result(true);
     }
-        
+
 
     public function toString()
     {

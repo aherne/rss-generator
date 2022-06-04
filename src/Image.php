@@ -1,4 +1,5 @@
 <?php
+
 namespace Lucinda\RSS;
 
 /**
@@ -12,14 +13,14 @@ class Image implements Tag
     private string $link;
     private ?int $width;
     private ?int $height;
-    private $description;
+    private ?string $description;
 
     /**
      * Image constructor.
      *
-     * @param string $url URL of website presenting image
-     * @param string $title Image textual description.
-     * @param string $link URL pointing to image source.
+     * @param  string $url   URL of website presenting image
+     * @param  string $title Image textual description.
+     * @param  string $link  URL pointing to image source.
      * @throws Exception
      */
     public function __construct(string $url, string $title, string $link)
@@ -38,7 +39,7 @@ class Image implements Tag
     /**
      * Sets image width in pixels.
      *
-     * @param integer $width Value of image width
+     * @param  integer $width Value of image width
      * @throws Exception
      */
     public function setWidth(int $width): void
@@ -52,7 +53,7 @@ class Image implements Tag
     /**
      * Sets image height in pixels.
      *
-     * @param integer $height Value of image height
+     * @param  integer $height Value of image height
      * @throws Exception
      */
     public function setHeight(int $height): void
@@ -73,9 +74,10 @@ class Image implements Tag
         $escaped = new Escape($description);
         $this->description = (string) $escaped;
     }
-    
+
     /**
      * {@inheritDoc}
+     *
      * @see Tag::__toString()
      */
     public function __toString(): string

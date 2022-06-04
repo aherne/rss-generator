@@ -1,4 +1,5 @@
 <?php
+
 namespace Lucinda\RSS;
 
 /**
@@ -16,11 +17,11 @@ class Cloud implements Tag
     /**
      * Cloud constructor.
      *
-     * @param string $domain Domain name of RSS cloud provider
-     * @param integer $port Port to connect on that domain
-     * @param string $path Url to connect to on that domain
-     * @param string $registerProcedure RSS register procedure on that url
-     * @param string $protocol Protocol to be used in connecting to domain.
+     * @param  string  $domain            Domain name of RSS cloud provider
+     * @param  integer $port              Port to connect on that domain
+     * @param  string  $path              Url to connect to on that domain
+     * @param  string  $registerProcedure RSS register procedure on that url
+     * @param  string  $protocol          Protocol to be used in connecting to domain.
      * @throws Exception If domain is invalid
      */
     public function __construct(string $domain, int $port, string $path, string $registerProcedure, string $protocol)
@@ -34,9 +35,10 @@ class Cloud implements Tag
         $this->registerProcedure = $registerProcedure;
         $this->protocol = $protocol;
     }
-    
+
     /**
      * {@inheritDoc}
+     *
      * @see Tag::__toString()
      */
     public function __toString(): string

@@ -1,4 +1,5 @@
 <?php
+
 namespace Test\Lucinda\RSS;
 
 use Lucinda\RSS\SkipDays;

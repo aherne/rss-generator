@@ -1,4 +1,5 @@
 <?php
+
 namespace Test\Lucinda\RSS;
 
 use Lucinda\RSS\Image;
@@ -7,7 +8,7 @@ use Lucinda\UnitTest\Result;
 class ImageTest
 {
     private $image;
-    
+
     public function __construct()
     {
         $this->image = new Image("http://www.google.com", "test title", "http://www.google.com/asd.gif");
@@ -18,21 +19,21 @@ class ImageTest
         $this->image->setWidth(640);
         return new Result(true);
     }
-        
+
 
     public function setHeight()
     {
         $this->image->setHeight(480);
         return new Result(true);
     }
-        
+
 
     public function setDescription()
     {
         $this->image->setDescription("asdfgh");
         return new Result(true);
     }
-        
+
 
     public function toString()
     {

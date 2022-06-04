@@ -1,4 +1,5 @@
 <?php
+
 namespace Lucinda\RSS;
 
 /**
@@ -14,10 +15,11 @@ class TextInput implements Tag
 
     /**
      * Input constructor.
-     * @param string $name Name of the textbox
-     * @param string $title Text to display on the submit button that will appear automatically next to the textbox
-     * @param string $link The URL where the data input into the textbox will be sent
-     * @param string $description Description for the textbox
+     *
+     * @param  string $name        Name of the textbox
+     * @param  string $title       Text to display on the submit button that will appear automatically next to the textbox
+     * @param  string $link        The URL where the data input into the textbox will be sent
+     * @param  string $description Description for the textbox
      * @throws Exception
      */
     public function __construct(string $name, string $title, string $link, string $description)
@@ -31,9 +33,10 @@ class TextInput implements Tag
         $escaped = new Escape($description);
         $this->description = (string) $escaped;
     }
-    
+
     /**
      * {@inheritDoc}
+     *
      * @see Tag::__toString()
      */
     public function __toString(): string

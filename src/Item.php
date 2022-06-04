@@ -1,4 +1,5 @@
 <?php
+
 namespace Lucinda\RSS;
 
 /**
@@ -17,12 +18,15 @@ class Item implements Tag
     private ?string $guid = null;
     private ?string $pubDate = null;
     private ?string $source = null;
+    /**
+     * @var \Stringable[]
+     */
     private array $extra = [];
 
     /**
      * Sets item's required information: title and description
      *
-     * @param string $title Sets the title of feed item
+     * @param string $title       Sets the title of feed item
      * @param string $description Sets a description of feed item
      */
     public function __construct(string $title, string $description)
@@ -36,7 +40,7 @@ class Item implements Tag
      * Sets item URL according to specifications:
      * https://www.rssboard.org/rss-profile#element-channel-item-url
      *
-     * @param string $url URL of feed item.
+     * @param  string $url URL of feed item.
      * @throws Exception
      */
     public function setLink(string $url): void
@@ -51,7 +55,7 @@ class Item implements Tag
      * Sets item author's email according to specifications:
      * https://www.rssboard.org/rss-profile#element-channel-item-author
      *
-     * @param string $email Author of feed item
+     * @param  string $email Author of feed item
      * @throws Exception
      */
     public function setAuthor(string $email): void
@@ -77,7 +81,7 @@ class Item implements Tag
      * Sets url of the comments page for the item according to specifications:
      * https://www.rssboard.org/rss-profile#element-channel-item-url
      *
-     * @param string $url URL of comments page of feed item
+     * @param  string $url URL of comments page of feed item
      * @throws Exception
      */
     public function setComments(string $url): void
@@ -125,7 +129,7 @@ class Item implements Tag
      * Set item's source RSS url according to specifications:
      * https://www.rssboard.org/rss-profile#element-channel-item-source
      *
-     * @param string $url
+     * @param  string $url
      * @throws Exception
      */
     public function setSource(string $url): void
@@ -135,7 +139,7 @@ class Item implements Tag
         }
         $this->source = $url;
     }
-    
+
     /**
      * Adds a custom tag not part of RSS 2.0 specifications
      *
@@ -145,9 +149,10 @@ class Item implements Tag
     {
         $this->extra[] = $tag;
     }
-    
+
     /**
      * {@inheritDoc}
+     *
      * @see Tag::__toString()
      */
     public function __toString(): string
